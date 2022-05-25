@@ -3,20 +3,20 @@
 const AWS = require('aws-sdk')
 const documentClient = new AWS.DynamoDB.DocumentClient()
 
-const performMove = async ({ gameId, user, changedHeap, changedHeapValue }) => {
-  if (changedHeapValue < 0 ) {
-    throw new Error('Cannot set heap value below 0')
+const performMove = async ({ gameId, user, changedSpace, changedSpaceValue }) => {
+  if (changedSpace != ' ' ) {
+    throw new Error('Space has already been changed to X or O')
   }
   const params = {
     TableName: 'turn-based-game',
     Key: { 
       gameId: gameId
     },
-    UpdateExpression: `SET lastMoveBy = :user, ${changedHeap} = :changedHeapValue`,
-    ConditionExpression: `(user1 = :user OR user2 = :user) AND lastMoveBy <> :user AND ${changedHeap} > :changedHeapValue`,
+    UpdateExpression: `SET lastMoveBy = :user, ${changedSpace} = :changedSpaceValue`,
+    ConditionExpression: `(user1 = :user OR user2 = :user) AND lastMoveBy <> :user AND ${changedHeap} != :changedHeapValue`,
     ExpressionAttributeValues: {
       ':user': user,
-      ':changedHeapValue': changedHeapValue,
+      ':changedSpaceValue': changedSpaceValue,
     },
     ReturnValues: 'ALL_NEW'
   }
@@ -28,4 +28,4 @@ const performMove = async ({ gameId, user, changedHeap, changedHeapValue }) => {
   }
 }
 
-performMove({ gameId: '5b5ee7d8', user: 'theseconduser', changedHeap: 'heap1', changedHeapValue: 3 })
+//performMove({ gameId: '5b5ee7d8', user: 'theseconduser', changedHeap: 'heap1', changedHeapValue: 3 })

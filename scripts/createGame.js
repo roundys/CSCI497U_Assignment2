@@ -9,9 +9,15 @@ const params = {
     gameId: '5b5ee7d8',
     user1: 'myfirstuser',
     user2: 'theseconduser',
-    heap1: 5,
-    heap2: 4,
-    heap3: 5,
+    A1: ' ',
+    A2: ' ',
+    A3: ' ',
+    B1: ' ',
+    B2: ' ',
+    B3: ' ',
+    C1: ' ',
+    C2: ' ',
+    C3: ' ',
     lastMoveBy: 'myfirstuser'
   }
 }
