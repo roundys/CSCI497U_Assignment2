@@ -50,7 +50,7 @@ POLICY=$(aws iam put-role-policy \
           "cognito-idp:AdminConfirmSignUp",
           "cognito-idp:AdminInitiateAuth",
           "cognito-idp:AdminGetUser",
-          "sns:Publish"
+          "ses:*"
         ],
         "Effect": "Allow"
       }
@@ -62,7 +62,7 @@ sleep 10
 echo "Creating Lambda function"
 FUNCTION_ARN=$(aws lambda create-function \
   --function-name turn-based-api \
-  --runtime nodejs10.x \
+  --runtime nodejs14.x \
   --role ${ROLE_ARN} \
   --handler application/handler.handler \
   --timeout 12 \
