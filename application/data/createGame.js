@@ -12,9 +12,15 @@ const createGame = async ({ creator, opponent }) => {
       gameId: uuidv4().split('-')[0],
       user1: creator,
       user2: opponent.username,
-      heap1: 5,
-      heap2: 4,
-      heap3: 5,
+      A1: ' ',
+      A2: ' ',
+      A3: ' ',
+      B1: ' ',
+      B2: ' ', 
+      B3: ' ',
+      C1: ' ',
+      C2: ' ',
+      C3: ' ',
       lastMoveBy: creator
     }
   };
@@ -28,7 +34,7 @@ const createGame = async ({ creator, opponent }) => {
 
   const message = `Hi ${opponent.username}. Your friend ${creator} has invited you to a new game! Your game ID is ${params.Item.gameId}`;
   try {
-    await sendMessage({ phoneNumber: opponent.phoneNumber, message });
+    await sendMessage({ phoneNumber: opponent.email, message });
   } catch (error) {
     console.log("Error sending message: ", error.message);
     throw new Error("Could not send message to user");
