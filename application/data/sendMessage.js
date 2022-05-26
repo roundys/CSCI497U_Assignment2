@@ -1,29 +1,27 @@
 // Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 const AWS = require("aws-sdk");
-const ses = new AWS.SES();
+const ses = new AWS.SES({region: "us-west-2"});
 
 const sendMessage = async ({ email, message }) => {
+  var myMessage = message
+  var receiverEmail = email
 
-  const params = {
+  console.log(JSON.stringify(receiverEmail))
+  console.log(JSON.stringify(myMessage))
+
+  var params = {
     Destination: { /* required */
-      ToAddresses: [
-        email
-      ]
+      ToAddresses: [receiverEmail],
     },
     Message: { /* required */
       Body: { /* required */
-        Html: {
-         Charset: "UTF-8",
-         Data: "HTML_FORMAT_BODY"
-        },
-        Text: message,
-       Subject: {
-        Charset: 'UTF-8',
-        Data: 'Tic-Tac-Toe'
-       }
+        Text: {Data : myMessage},
+       },
+
+       Subject: {Data: "Game Update!"},
       },
-    Source: 'roundys@wwu.edu', /* required */
+    Source: "myemail@example.com", /* required */
   };
 
 
