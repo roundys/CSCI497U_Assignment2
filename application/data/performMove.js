@@ -8,7 +8,7 @@ const performMove = async ({ gameId, user, changedSpace, changedSpaceValue }) =>
     throw new Error("Cannot change a space that already has an X or O in it");
   }
   const params = {
-    TableName: "turn-based-game",
+    TableName: "tic-tac-toe",
     Key: {
       gameId: gameId
     },

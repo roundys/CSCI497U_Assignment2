@@ -4,7 +4,7 @@ source env.sh
 
 echo "Creating REST API"
 REST_API_ID=$(aws apigateway create-rest-api \
-  --name 'Turn-based API' \
+  --name 'tic-tac-toe' \
   --query 'id' \
   --output text)
 
@@ -36,7 +36,7 @@ INTEGRATION=$(aws apigateway put-integration \
   --http-method ANY \
   --type AWS_PROXY \
   --integration-http-method POST \
-  --uri arn:aws:apigateway:${AWS_REGION}:lambda:path/2015-03-31/functions/${FUNCTION_ARN}/invocations)
+  --uri arn:aws:apigateway:"us-west-2":lambda:path/2015-03-31/functions/${FUNCTION_ARN}/invocations)
 
 echo "Creating deployment"
 DEPLOYMENT=$(aws apigateway create-deployment \
@@ -50,7 +50,7 @@ ACCOUNT_ID=$(aws sts get-caller-identity \
 
 echo "Adding lambda permission"
 PERMISSION=$(aws lambda add-permission \
-  --function-name turn-based-api \
+  --function-name tic-tac-toe-api \
   --statement-id api-gateway \
   --action lambda:InvokeFunction \
   --principal apigateway.amazonaws.com \

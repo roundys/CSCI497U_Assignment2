@@ -1,7 +1,7 @@
 # Copyright 2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: MIT-0
 USER_POOL_ID=$(aws cognito-idp create-user-pool \
-  --pool-name turn-based-users \
+  --pool-name tic-tac-toe-users \
   --policies '
       {
         "PasswordPolicy": {
@@ -14,7 +14,7 @@ USER_POOL_ID=$(aws cognito-idp create-user-pool \
       }' \
   --schema '[
       {
-        "Name": "e-mail",
+        "Name": "email",
         "StringAttributeConstraints": {
             "MinLength": "0",
             "MaxLength": "2048"

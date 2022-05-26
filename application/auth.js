@@ -11,7 +11,7 @@ const client = jwksClient({
   jwksUri: `https://cognito-idp.${process.env.AWS_REGION}.amazonaws.com/${process.env.USER_POOL_ID}/.well-known/jwks.json`
 });
 
-const createCognitoUser = async (username, password, email, phoneNumber) => {
+const createCognitoUser = async (username, password, email) => {
   const signUpParams = {
     ClientId: process.env.COGNITO_CLIENT_ID,
     Username: username,
@@ -20,10 +20,6 @@ const createCognitoUser = async (username, password, email, phoneNumber) => {
       {
         Name: "email",
         Value: email
-      },
-      {
-        Name: "phone_number",
-        Value: phoneNumber
       }
     ]
   };
@@ -35,8 +31,7 @@ const createCognitoUser = async (username, password, email, phoneNumber) => {
   await cognitoidentityserviceprovider.adminConfirmSignUp(confirmParams).promise();
   return {
     username,
-    email,
-    phoneNumber
+    email
   };
 };
 
@@ -62,10 +57,10 @@ const fetchUserByUsername = async username => {
     Username: username
   };
   const user = await cognitoidentityserviceprovider.adminGetUser(params).promise();
-  const phoneNumber = user.UserAttributes.filter(attribute => attribute.Name === "phone_number")[0].Value;
+  const email = user.UserAttributes.filter(attribute => attribute.Name === "email")[0].Value;
   return {
     username,
-    phoneNumber
+    email
   };
 };
 

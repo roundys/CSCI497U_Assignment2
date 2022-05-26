@@ -34,8 +34,7 @@ app.post("/users", wrapAsync(async (req, res) => {
   const user = await createCognitoUser(
     req.body.username,
     req.body.password,
-    req.body.email,
-    req.body.phoneNumber
+    req.body.email
   );
   res.json(user);
 }));
@@ -71,8 +70,8 @@ app.post("/games/:gameId", wrapAsync(async (req, res) => {
   const game = await performMove({
     gameId: req.params.gameId,
     user: token["cognito:username"],
-    changedHeap: req.body.changedHeap,
-    changedHeapValue: req.body.changedHeapValue
+    changedSpace: req.body.changedSpace,
+    changedSpaceValue: req.body.changedSpaceValue
   });
   let opponentUsername
   if (game.user1 !== game.lastMoveBy) {
@@ -83,7 +82,7 @@ app.post("/games/:gameId", wrapAsync(async (req, res) => {
   const opponent = await fetchUserByUsername(opponentUsername);
   const mover = {
     username: token['cognito:username'],
-    phoneNumber: token['phone_number']
+    email: token['email']
   }
   await handlePostMoveNotification({ game, mover, opponent })
   res.json(game);
