@@ -139,6 +139,7 @@ public class Main {
         user.username = username;
         user.password = password;
         user.idToken = responseJSON.get("idToken").toString();
+        return user;
     }
 
     //Ask user if they want to create a new game or join an existing one
