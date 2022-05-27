@@ -28,4 +28,4 @@ POOL=$(aws cognito-idp delete-user-pool \
 
 echo "Deleting DynamoDB table"
 TABLE=$(aws dynamodb delete-table \
-  --table-name turn-based-game)
+  --table-name tic-tac-toe)
